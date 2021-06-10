@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -10,4 +10,6 @@ var firebaseConfig = {
     appId: "1:79640507973:web:af9fd30fb29d873954952c"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+var fireDb = firebase.initializeApp(firebaseConfig);
+
+export default fireDb.database().ref();
