@@ -4,6 +4,8 @@ import ProfileBanner from "../profile-banner";
 import { users } from "../../assets/constant";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import Table from "react-bootstrap/Table";
+import * as Constants from "../../assets/constant";
 
 const Dashboard = () => {
   const initialValues = {
@@ -12,12 +14,13 @@ const Dashboard = () => {
     investedDate: "",
   };
 
-  var [contributionDetails, setContributionDetails] = useState({});
+  var [contributionDetails, setContributionDetails] = useState(
+    Constants.ContributionDetails
+  );
+  var [userDetails, setUserDetails] = useState([]);
   var [investorName, setInvestorName] = useState("");
 
   var [values, setValues] = useState(initialValues);
-
-  const [investedDate, setInvestedDate] = useState(new Date());
 
   const handleChange = (e) => {
     console.log("e", e);
@@ -45,14 +48,35 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    firebaseDb.child("clubMemberContribution").on("value", (snapshot) => {
-      if (snapshot.val()) {
-        setContributionDetails({
-          ...snapshot.val(),
-        });
-      }
+    let usersList = [];
+    contributionDetails.forEach((contribution, ind) => {
+      contribution["Contributors"].forEach((contributor) => {
+        usersList.push(JSON.stringify(contributor["Contributor"]));
+      });
     });
+    usersList = usersList.filter((val, id, array) => array.indexOf(val) === id);
+    setUserDetails(usersList);
+    // firebaseDb.child("clubMemberContribution").on("value", (snapshot) => {
+    //   if (snapshot.val()) {
+    //     setContributionDetails({
+    //       ...snapshot.val(),
+    //     });
+    //   }
+    // });
   }, []);
+
+  const getTotalContribution = (userId) => {
+    let totalContribution = 0;
+    contributionDetails.forEach((contribution) => {
+      contribution["Contributors"].forEach((contributor, ind) => {
+        if (contributor.Contributor["UserId"] === userId) {
+          totalContribution =
+            totalContribution + contributor.ContributionAmount;    
+        }
+      });
+    });
+    return totalContribution;
+  };
 
   return (
     <>
@@ -130,8 +154,8 @@ const Dashboard = () => {
       </form>
       <div className="row">
         <div className="col">
-          <table className="table table-borderless table-stripped border border-primary">
-            <thead className="thead-light">
+          <Table striped bordered hover variant="dark" className="text-center">
+            <thead>
               <tr>
                 <th>Club Member Name</th>
                 <th>Investment</th>
@@ -141,49 +165,27 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {/* {Object.keys(contributionDetails).map((id) => { */}
-              {/* return ( */}
-              <tr>
-                <td>Ganu</td>
-                <td>6000</td>
-                <td>6547.24</td>
-                <td>547.24</td>
-                <td>9.12</td>
-              </tr>
-              <tr>
-                <td>Manju</td>
-                <td>6000</td>
-                <td>6547.24</td>
-                <td>547.24</td>
-                <td>9.12</td>
-              </tr>
-              <tr>
-                <td>Pavan</td>
-                <td>6000</td>
-                <td>6547.24</td>
-                <td>547.24</td>
-                <td>9.12</td>
-              </tr>
-              <tr>
-                <td>Puni</td>
-                <td>6000</td>
-                <td>6547.24</td>
-                <td>547.24</td>
-                <td>9.12</td>
-              </tr>
-              <tr>
-                <td>Santhu</td>
-                <td>6000</td>
-                <td>6547.24</td>
-                <td>547.24</td>
-                <td>9.12</td>
-              </tr>
-              {/* );
-              })} */}
+              {userDetails &&
+                userDetails.length > 0 &&
+                userDetails.map((user, ind) => {
+                  return (
+                    <tr>
+                      <td>{JSON.parse(user)["FullName"]}</td>
+                      <td>
+                        {getTotalContribution(JSON.parse(user)["UserId"])}
+                      </td>
+                      <td>6547.24</td>
+                      <td className="text-success">
+                        <strong>547.24</strong>
+                      </td>
+                      <td>9.12</td>
+                    </tr>
+                  );
+                })}
             </tbody>
-          </table>
+          </Table>
         </div>
-      </div>
+        </div>
       <div className="row">
         <div className="col">
           <table className="table table-borderless table-stripped border border-secondary">
@@ -222,6 +224,7 @@ const Dashboard = () => {
         </div>
         <div className="col">
           <div className="row">
+            {/* className="table table-borderless table-stripped border border-success" */}
             <table className="table table-borderless table-stripped border border-success">
               <thead className="thead-light text-center">
                 <tr>
@@ -295,7 +298,7 @@ const Dashboard = () => {
           </table>
         </div>
         <div className="col">
-        <table className="table table-borderless table-stripped border border-secondary">
+          <table className="table table-borderless table-stripped border border-secondary">
             <thead className="thead-light text-center">
               <tr>
                 <th colspan="2">Total Invested By</th>
