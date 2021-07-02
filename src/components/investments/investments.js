@@ -2,41 +2,54 @@ import React, { useEffect, useState } from "react";
 import * as Constants from "../../assets/constant";
 import { getLatestNavs } from "../../services/api.services";
 import Card from "react-bootstrap/Card";
+import { useSelector, useDispatch } from "react-redux";
+import { updateInvestmentDetails } from "../../actions";
 
 const Investments = () => {
-  var [investmentDetails, setInvestmentDetails] = useState(
-    Constants.InvestmentDetails
-  );
   var [totalInvestment, setTotalInvestment] = useState(0);
   var [totalInvestmentNetworth, setTotalInvestmentNetworth] = useState(0);
   var [totalGain, setTotalGain] = useState(0);
+
+  const investmentDetailsState = useSelector(
+    (state) => state.investmentDetails
+  );
+  var [investmentDetails, setInvestmentDetails] = useState({});
+  const dispatch = useDispatch();
+  dispatch(updateInvestmentDetails(Constants.InvestmentDetails));
 
   useEffect(() => {
     let totalInv = 0;
     let totalInvNetworth = 0;
     let totGain = 0;
-    investmentDetails.forEach((inv, ind) => {
-      totalInv = totalInv + inv.InvestedAmount;
-
-      getLatestNavs(inv.SchemeCode).then((data) => {
-        inv["CurrentNav"] = data;
-        totalInvNetworth = totalInvNetworth + data * inv.Units;
-        totGain = totGain + (data * inv.Units - inv.InvestedAmount);
-        setInvestmentDetails([
-          ...investmentDetails.slice(0, ind),
-          inv,
-          ...investmentDetails.slice(ind + 1),
-        ]);
-        setTotalInvestmentNetworth(totalInvNetworth);
-        setTotalGain(totGain.toFixed(2));
+    if (investmentDetailsState && investmentDetailsState.responseData) {
+      setInvestmentDetails(investmentDetailsState);
+      investmentDetailsState.responseData.forEach((inv, ind) => {
+        totalInv = totalInv + inv.InvestedAmount;
+        getLatestNavs(inv.SchemeCode).then((data) => {
+          inv["CurrentNav"] = data;
+          totalInvNetworth = totalInvNetworth + data * inv.Units;
+          totGain = totGain + (data * inv.Units - inv.InvestedAmount);
+          setInvestmentDetails([
+            ...investmentDetailsState.responseData.slice(0, ind),
+            inv,
+            ...investmentDetailsState.responseData.slice(ind + 1),
+          ]);
+          setTotalInvestmentNetworth(totalInvNetworth);
+          setTotalGain(totGain.toFixed(2));
+        });
       });
-    });
+    }
     setTotalInvestment(totalInv);
   }, []);
 
   return (
     <>
       <div className="py-4">
+        <div className="container-fluid text-center">
+          <div className="container">
+            <h1 className="display-4">Investments</h1>
+          </div>
+        </div>
         <p>
           <strong>Mutual Funds</strong>
         </p>
