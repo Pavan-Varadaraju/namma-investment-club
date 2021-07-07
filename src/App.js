@@ -9,6 +9,7 @@ import Contributions from "./components/contributions/contributions";
 import { createStore } from "redux";
 import allReducers from "./reducers";
 import { Provider } from "react-redux";
+require("dotenv").config();
 
 const store = createStore(
   allReducers,

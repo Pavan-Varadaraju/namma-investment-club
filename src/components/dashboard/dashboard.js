@@ -21,8 +21,8 @@ const Dashboard = () => {
     Constants.ContributionDetails
   );
   const dispatch = useDispatch();
-  
-  dispatch(updateContributionDetails("Constants.ContributionDetails"));
+
+  dispatch(updateContributionDetails(Constants.ContributionDetails));
   var [userDetails, setUserDetails] = useState([]);
   var [investorName, setInvestorName] = useState("");
 

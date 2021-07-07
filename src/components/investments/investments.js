@@ -21,6 +21,9 @@ const Investments = () => {
     let totalInv = 0;
     let totalInvNetworth = 0;
     let totGain = 0;
+    fetch(process.env.REACT_APP_API_BASEURL + process.env.REACT_APP_API_ENDPOINT_CONTRIBUTIONDETAILS)
+      .then((resp) => resp.json())
+      .then((data) => console.log("resp data", data));
     if (investmentDetailsState && investmentDetailsState.responseData) {
       setInvestmentDetails(investmentDetailsState);
       investmentDetailsState.responseData.forEach((inv, ind) => {

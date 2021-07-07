@@ -7,7 +7,7 @@ export const updateInvestmentDetails = (invDetail) => {
 
 export const updateContributionDetails = (contributionDetail) => {
   return {
-    type: "updateContributions",
+    type: "UpdateContributionDetails",
     data: contributionDetail,
   };
 };

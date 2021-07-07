@@ -9,7 +9,7 @@ const Menu = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="box-shadow">
         <Navbar.Brand className="cursor-pointer" onClick={goHome}>
           Namma Investment Club
         </Navbar.Brand>
