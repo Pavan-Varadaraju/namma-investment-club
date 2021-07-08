@@ -1,4 +1,4 @@
-const contributionDetailsReducer = (contributionDetails = {}, action) => {
+const contributionDetailsReducer = (contributionDetails = null, action) => {
   switch (action.type) {
     case "UpdateContributionDetails":
       return action.data;
