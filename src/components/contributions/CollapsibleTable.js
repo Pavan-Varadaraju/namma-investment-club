@@ -14,8 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import { useDispatch, useSelector } from "react-redux";
-import { updateContributionDetails } from "../../actions";
+import { useSelector } from "react-redux";
+import { updateStoreContributionDetails } from "../../common/common-functions";
 
 const useRowStyles = makeStyles({
   root: {
@@ -145,8 +145,6 @@ export default function CollapsibleTable() {
     (state) => state.contributionDetails
   );
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     setContributionDetails(contributionDetailsState);
     !contributionDetailsState &&
@@ -157,7 +155,7 @@ export default function CollapsibleTable() {
         .then((resp) => resp.json())
         .then((data) => {
           setContributionDetails(data);
-          dispatch(updateContributionDetails(data));
+          updateStoreContributionDetails(data);
         });
   }, []);
 

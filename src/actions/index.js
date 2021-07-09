@@ -11,3 +11,10 @@ export const updateContributionDetails = (contributionDetail) => {
     data: contributionDetail,
   };
 };
+
+export const updateClubDetails = (clubDetail) => {
+  return {
+    type: "UpdateClubDetails",
+    data: clubDetail,
+  };
+};

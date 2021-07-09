@@ -2,19 +2,61 @@ import React, { useEffect, useState } from "react";
 import firebaseDb from "../../firebase";
 import Table from "react-bootstrap/Table";
 import Shareholding from "./shareholding";
-import { useSelector, useDispatch } from "react-redux";
-import { updateContributionDetails } from "../../actions";
+import { useSelector } from "react-redux";
+import {
+  updateClubTotalContribution,
+  updateStoreClubDetailsUserList,
+  updateStoreContributionDetails,
+} from "../../common/common-functions";
 
 let usersList = [];
+let usersListWithContribution = [];
+
+const getUserTotalContribution = (usersListWithContribution, usersList) => {
+  let userListObject = [];
+  let totalClubContribution = 0;
+  if (
+    usersList &&
+    usersList.length > 0 &&
+    usersListWithContribution &&
+    usersListWithContribution.length > 0
+  ) {
+    usersList.map((user) => {
+      let userTotalContribution = 0;
+      usersListWithContribution.map((usersWithContribution) => {
+        if (
+          JSON.parse(usersWithContribution).Contributor.FullName ===
+          JSON.parse(user).FullName
+        ) {
+          userTotalContribution += JSON.parse(
+            usersWithContribution
+          ).ContributionAmount;
+        }
+      });
+      let userObject = JSON.parse(user);
+      userObject.UserTotalContribution = userTotalContribution;
+      totalClubContribution += userTotalContribution;
+      userListObject.push(userObject);
+    });
+    updateClubTotalContribution(totalClubContribution);
+    updateStoreClubDetailsUserList(userListObject);
+  }
+};
 
 function getUserList(contributionDetails) {
   contributionDetails &&
     contributionDetails.forEach((contribution, ind) => {
       contribution["Contributors"].forEach((contributor) => {
         usersList.push(JSON.stringify(contributor["Contributor"]));
+        usersListWithContribution.push(JSON.stringify(contributor));
       });
     });
+
   usersList = usersList.filter((val, id, array) => array.indexOf(val) === id);
+  usersListWithContribution = usersListWithContribution.filter(
+    (val, id, array) => array.indexOf(val) === id
+  );
+  getUserTotalContribution(usersListWithContribution, usersList);
 }
 
 const Dashboard = () => {
@@ -23,7 +65,6 @@ const Dashboard = () => {
   );
 
   var [contributionDetails, setContributionDetails] = useState();
-  const dispatch = useDispatch();
 
   var [userDetails, setUserDetails] = useState([]);
 
@@ -40,9 +81,9 @@ const Dashboard = () => {
         .then((resp) => resp.json())
         .then((data) => {
           setContributionDetails(data);
-          dispatch(updateContributionDetails(data));
           getUserList(data);
           setUserDetails(usersList);
+          updateStoreContributionDetails(data);
         });
     }
 

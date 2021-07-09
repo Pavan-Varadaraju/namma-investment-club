@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
+import watch from "redux-watch";
+import store from "../../store";
+
+let clubDetailsState;
 
 const Shareholding = () => {
-  const investmentDetails = useSelector((state) => state.investmentDetails);
-  var [percentageShareHolding, setPercentageShareHolding] = useState(0);
+  clubDetailsState = useSelector((state) => state.clubDetails);
 
-  useEffect(() => {
-      
-  }, []);
+  var [clubDetails, setClubDetails] = useState(clubDetailsState);
+
+  const getPercentageShareHolding = (userId) => {
+    let percentageShareHolding = 0;
+    if (clubDetailsState.usersList && clubDetailsState.totalContribution) {
+      clubDetailsState.usersList.map((user) => {
+        if (user.id === userId) {
+          percentageShareHolding =
+            (user.UserTotalContribution / clubDetailsState.totalContribution) *
+            100;
+        }
+      });
+    }
+    return percentageShareHolding;
+  };
+
+  // let w = watch(store.getState, "clubDetails");
+  // store.subscribe(
+  //   w((newVal, oldVal, objectPath) => {
+  //     // console.log("%s changed from %s to %s", objectPath, oldVal, newVal);
+  //   })
+  // );
+
   return (
     <>
       <table className="table table-borderless table-stripped border border-secondary">
@@ -18,30 +41,16 @@ const Shareholding = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {Object.keys(contributionDetails).map((id) => { */}
-          {/* return ( */}
-          <tr>
-            <td>Ganu</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Manju</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Pavan</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Puni</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Santhu</td>
-            <td>20</td>
-          </tr>
-          {/* );
-              })} */}
+          {clubDetails &&
+            clubDetails.usersList &&
+            clubDetails.usersList.map((user, ind) => {
+              return (
+                <tr>
+                  <td>{user.FullName}</td>
+                  <td>{getPercentageShareHolding(user.id)}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </>

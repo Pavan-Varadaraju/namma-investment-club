@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import * as Constants from "../../assets/constant";
+import * as Constants from "../../common/constant";
 import { getLatestNavs } from "../../services/api.services";
 import Card from "react-bootstrap/Card";
-import { useSelector, useDispatch } from "react-redux";
-import { updateInvestmentDetails } from "../../actions";
+import { useSelector } from "react-redux";
+import { updateStoreInvestmentDetails } from "../../common/common-functions";
 
 const Investments = () => {
   var [totalInvestment, setTotalInvestment] = useState(0);
@@ -14,14 +14,16 @@ const Investments = () => {
     (state) => state.investmentDetails
   );
   var [investmentDetails, setInvestmentDetails] = useState({});
-  const dispatch = useDispatch();
-  dispatch(updateInvestmentDetails(Constants.InvestmentDetails));
+  updateStoreInvestmentDetails(Constants.InvestmentDetails);
 
   useEffect(() => {
     let totalInv = 0;
     let totalInvNetworth = 0;
     let totGain = 0;
-    fetch(process.env.REACT_APP_API_BASEURL + process.env.REACT_APP_API_ENDPOINT_CONTRIBUTIONDETAILS)
+    fetch(
+      process.env.REACT_APP_API_BASEURL +
+        process.env.REACT_APP_API_ENDPOINT_CONTRIBUTIONDETAILS
+    )
       .then((resp) => resp.json())
       .then((data) => console.log("resp data", data));
     if (investmentDetailsState && investmentDetailsState.responseData) {
