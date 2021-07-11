@@ -18,16 +18,16 @@ function App() {
             <Menu />
             <div>
               <Switch>
-                <Route path="namma-investment-club/dashboard">
+                <Route path={process.env.PUBLIC_URL + "/dashboard"}>
                   <Dashboard />
                 </Route>
-                <Route path="namma-investment-club/investments">
+                <Route path={process.env.PUBLIC_URL + "/investments"}>
                   <Investments />
                 </Route>
-                <Route path="namma-investment-club/contributions">
+                <Route path={process.env.PUBLIC_URL + "/contributions"}>
                   <Contributions />
                 </Route>
-                <Route path="/">
+                <Route path={process.env.PUBLIC_URL + "/"}>
                   <Dashboard />
                 </Route>
               </Switch>
