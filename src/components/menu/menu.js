@@ -20,7 +20,7 @@ const Menu = () => {
               <NavLink to="dashboard">Dashboard</NavLink>
             </Nav.Link>
             <Nav.Link>
-              <NavLink activeClassName="current" to="investments">
+              <NavLink activeClassName="current" to={process.env.PUBLIC_URL + "investments"}>
                 Investments
               </NavLink>
             </Nav.Link>
