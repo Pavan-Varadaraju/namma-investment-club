@@ -11,10 +11,11 @@ import {
 
 let usersList = [];
 let usersListWithContribution = [];
+let totalClubContribution = 0;
 
 const getUserTotalContribution = (usersListWithContribution, usersList) => {
   let userListObject = [];
-  let totalClubContribution = 0;
+  totalClubContribution = 0;
   if (
     usersList &&
     usersList.length > 0 &&
@@ -172,7 +173,7 @@ const Dashboard = () => {
                   <td>Other Income</td>
                 </tr>
                 <tr>
-                  <td>30000</td>
+                  <td>{totalClubContribution}</td>
                   <td>96</td>
                 </tr>
               </tbody>

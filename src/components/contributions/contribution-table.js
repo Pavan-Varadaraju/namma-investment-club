@@ -139,7 +139,7 @@ function getRowsData(contributionDetails) {
     });
 }
 
-export default function CollapsibleTable() {
+export default function ContributionTable() {
   const [contributionDetails, setContributionDetails] = useState();
   const contributionDetailsState = useSelector(
     (state) => state.contributionDetails

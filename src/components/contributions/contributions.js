@@ -1,7 +1,10 @@
 import React from "react";
-import CollapsibleTable from "./CollapsibleTable";
+import ContributionTable from "./contribution-table";
+import Card from "react-bootstrap/Card";
+import { useSelector } from "react-redux";
 
 const Contributions = () => {
+  const clubDetailsState = useSelector((state) => state.clubDetails);
   return (
     <>
       <div className="py-4">
@@ -11,8 +14,16 @@ const Contributions = () => {
           </div>
         </div>
       </div>
-      <div className="box-shadow">
-        <CollapsibleTable></CollapsibleTable>
+      <Card bg={"success"} text="white" className="text-center">
+        <Card.Header>
+          <strong> Total Contribution </strong>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title> {clubDetailsState.totalContribution} </Card.Title>
+        </Card.Body>
+      </Card>
+      <div className="box-shadow mt-4">
+        <ContributionTable></ContributionTable>
       </div>
     </>
   );
