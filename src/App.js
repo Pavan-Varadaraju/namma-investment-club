@@ -18,13 +18,13 @@ function App() {
             <Menu />
             <div>
               <Switch>
-                <Route path="/dashboard">
+                <Route path="namma-investment-club/dashboard">
                   <Dashboard />
                 </Route>
-                <Route path="/investments">
+                <Route path="namma-investment-club/investments">
                   <Investments />
                 </Route>
-                <Route path="/contributions">
+                <Route path="namma-investment-club/contributions">
                   <Contributions />
                 </Route>
                 <Route path="/">
