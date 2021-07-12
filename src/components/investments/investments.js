@@ -60,7 +60,7 @@ const Investments = () => {
         </p>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col p-4">
           <table className="table table-borderless table-stripped border border-primary">
             <thead className="thead-light text-center">
               <tr>
@@ -115,7 +115,7 @@ const Investments = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className="col-sm-12 col-md-4 p-4">
           <Card bg="light" text="dark" className="text-center">
             <Card.Header>
               <strong>Total Investments</strong>
@@ -129,7 +129,7 @@ const Investments = () => {
           </Card>
         </div>
 
-        <div className="col">
+        <div className="col-sm-12 col-md-4 p-4">
           <Card
             bg={totalGain > 0 ? "success" : "danger"}
             text="white"
@@ -143,7 +143,7 @@ const Investments = () => {
             </Card.Body>
           </Card>
         </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-4 p-4">
           <Card bg="primary" text="white" className="text-center">
             <Card.Header>
               <strong>Total Investment Networth </strong>
