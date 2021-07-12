@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import Shareholding from "./shareholding";
 import { useSelector } from "react-redux";
 import {
-  updateClubTotalContribution,
+  updateStoreClubTotalContribution,
   updateStoreClubDetailsUserList,
   updateStoreContributionDetails,
 } from "../../common/common-functions";
@@ -39,7 +39,7 @@ const getUserTotalContribution = (usersListWithContribution, usersList) => {
       totalClubContribution += userTotalContribution;
       userListObject.push(userObject);
     });
-    updateClubTotalContribution(totalClubContribution);
+    updateStoreClubTotalContribution(totalClubContribution);
     updateStoreClubDetailsUserList(userListObject);
   }
 };

@@ -22,7 +22,7 @@ const Shareholding = () => {
         }
       });
     }
-    return percentageShareHolding;
+    return percentageShareHolding.toFixed(2);
   };
 
   // let w = watch(store.getState, "clubDetails");

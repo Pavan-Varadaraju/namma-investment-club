@@ -20,7 +20,7 @@ export const updateStoreClubDetailsUserList = (usersList) => {
   store.dispatch(updateClubDetails(state.clubDetails));
 };
 
-export const updateClubTotalContribution = (totalContribution) => {
+export const updateStoreClubTotalContribution = (totalContribution) => {
   const state = store.getState();
   state.clubDetails.totalContribution = totalContribution;
   store.dispatch(updateClubDetails(state.clubDetails));
