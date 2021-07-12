@@ -122,8 +122,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
+      <div className="row px-2">
+        <div className="col-sm-12 col-md-12">
           <Table striped bordered hover variant="dark" className="text-center">
             <thead>
               <tr>
@@ -154,12 +154,12 @@ const Dashboard = () => {
           </Table>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
+      <div className="row px-4">
+        <div className="col-sm-12 col-md-6">
           <Shareholding></Shareholding>
         </div>
-        <div className="col">
-          <div className="row">
+        <div className="col-sm-12 col-md-6">
+          <div className="row px-3">
             {/* className="table table-borderless table-stripped border border-success" */}
             <table className="table table-borderless table-stripped border border-success">
               <thead className="thead-light text-center">
@@ -179,7 +179,7 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <div className="row">
+          <div className="row px-3">
             <table className="table table-borderless table-stripped border border-warning">
               <thead className="thead-light text-center">
                 <tr>
@@ -204,8 +204,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
+      <div className="row px-4">
+        <div className="col-sm-12 col-md-6">
           <table className="table table-borderless table-stripped border border-info">
             <thead className="thead-light text-center">
               <tr>
@@ -221,7 +221,7 @@ const Dashboard = () => {
             </tbody>
           </table>
         </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-6">
           <table className="table table-borderless table-stripped border border-secondary">
             <thead className="thead-light text-center">
               <tr>
