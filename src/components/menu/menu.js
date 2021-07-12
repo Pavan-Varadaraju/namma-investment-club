@@ -4,7 +4,7 @@ import { useHistory, NavLink } from "react-router-dom";
 const Menu = () => {
   const history = useHistory();
   const goHome = () => {
-    history.push("/");
+    history.push(process.env.PUBLIC_URL + "/");
   };
 
   return (
