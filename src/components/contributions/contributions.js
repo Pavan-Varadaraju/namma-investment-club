@@ -10,19 +10,21 @@ const Contributions = () => {
       <div className="py-4">
         <div className="container-fluid text-center">
           <div className="container">
-            <h1 className="display-4">Contributions</h1>
+            <h1 className="display-5">Contributions</h1>
           </div>
         </div>
       </div>
-      <Card bg={"success"} text="white" className="text-center">
-        <Card.Header>
-          <strong> Total Contribution </strong>
-        </Card.Header>
-        <Card.Body>
-          <Card.Title> {clubDetailsState.totalContribution} </Card.Title>
-        </Card.Body>
-      </Card>
-      <div className="box-shadow mt-4">
+      <div className="text-center p-3">
+        <Card bg={"success"} text="white">
+          <Card.Header>
+            <strong> Total Contribution </strong>
+          </Card.Header>
+          <Card.Body>
+            <Card.Title> {clubDetailsState.totalContribution} </Card.Title>
+          </Card.Body>
+        </Card>
+      </div>
+      <div className="box-shadow mt-4 p-3">
         <ContributionTable></ContributionTable>
       </div>
     </>
